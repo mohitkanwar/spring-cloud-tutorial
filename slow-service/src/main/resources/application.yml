@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: slow-service
+  cloud:
+    config:
+      uri: http://localhost:8888
+server:
+  port: 1104
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    env:
+      post:
+        enabled: true
+    restart:
+      enabled: true
+endpoints:
+  sensitive: true
+  actuator:
+    enabled: true
