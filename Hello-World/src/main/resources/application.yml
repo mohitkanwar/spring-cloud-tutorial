@@ -1,5 +1,23 @@
 spring:
   application:
     name: hello-world
+  cloud:
+    config:
+      uri: http://localhost:8888
 server:
   port: 1102
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    env:
+      post:
+        enabled: true
+    restart:
+      enabled: true
+endpoints:
+  sensitive: true
+  actuator:
+    enabled: true
