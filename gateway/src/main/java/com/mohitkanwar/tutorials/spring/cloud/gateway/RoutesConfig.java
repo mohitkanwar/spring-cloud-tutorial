@@ -12,7 +12,7 @@ public class RoutesConfig {
         return routeLocatorBuilder.routes()
                 .route(p ->
                         p.path("/greeting")
-                        .uri("http://localhost:1102"))
+                        .uri("lb://hello-world"))
                 .build();
     }
 }
