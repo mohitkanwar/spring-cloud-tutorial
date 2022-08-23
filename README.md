@@ -13,6 +13,7 @@ This tutorial aims to create a spring cloud architecture that comprises of the f
 10. Security implementation
 11. Tracing
 12. Idempotency
+13. Logging
 
 
 
@@ -237,3 +238,6 @@ Add the following properties
 resilience4j.retry.instances.slow-service.max-attempts=5
 resilience4j.retry.instances.slow-service.wait-duration=2s
 ```
+
+
+## Gateway Circuit Breaker and Rate Limiter
