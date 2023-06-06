@@ -11,6 +11,8 @@ This tutorial aims to create a spring cloud architecture that comprises of the f
 8. Rate Limiting
 9. Redis Caching
 10. Security implementation
+11. Tracing
+12. Idempotency
 
 
 
@@ -157,3 +159,66 @@ endpoints:
 7. The config server picks changes immedietely
 8. The config client picks changes when the actuator endpoint is hit
    1. ``curl --location --request OPTIONS 'http://localhost:1102/actuator/refresh'``
+## Circuit Breaker
+   1. Identify a problem
+   2. Break the circuit
+   3. deactivate the problem component so that it doesn't affect the downstream statement
+   4. Activate the circuit 
+
+### Breaking a circuit
+ * Last n requests in order to make  a decision
+ * How many of those should fail
+ * Timeout duration
+
+## Identifying a circuit is good to be back
+ * how long after a circuit trip to try again
+
+Circuit Breaking using Resilliance4J
+1. Create the microservice and Add the dependencies :
+```xml
+ <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+```
+2. Integrate using Feign (or any other client)
+3. Define CircuitBreaker and Fallback method
+
+```java
+@CircuitBreaker(name = "slow-service" , fallbackMethod = "slowServiceFallback")
+```
+
+4. Define the properties
+
+```properties
+
+management.endpoints.web.exposure.include=*
+management.health.circuitbreakers.enabled=true
+management.endpoint.health.show-details=always
+resilience4j.circuitbreaker.instances.slow-service.register-health-indicator=true
+resilience4j.circuitbreaker.instances.slow-service.event-consumer-buffer-size=10
+resilience4j.circuitbreaker.instances.slow-service.failure-rate-threshold=50
+resilience4j.circuitbreaker.instances.slow-service.minimum-number-of-calls=5
+resilience4j.circuitbreaker.instances.slow-service.automatic-transition-from-open-to-half-open-enabled=true
+resilience4j.circuitbreaker.instances.slow-service.wait-duration-in-open-state=5s
+resilience4j.circuitbreaker.instances.slow-service.permitted-number-of-calls-in-half-open-state=3
+resilience4j.circuitbreaker.instances.slow-service.sliding-window-size=10
+resilience4j.circuitbreaker.instances.slow-service.sliding-window-type=COUNT_BASED
+```
