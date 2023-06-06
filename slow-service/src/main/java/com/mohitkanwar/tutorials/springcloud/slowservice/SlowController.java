@@ -20,12 +20,12 @@ public class SlowController {
     @GetMapping
     public String getResponse(){
         long randomNum = ThreadLocalRandom.current().nextInt(minimumTime, maximumTime + 1);
-       // try {
-           // Thread.sleep(randomNum * 1000L);
+        try {
+            Thread.sleep(randomNum * 1000L);
             return "I waited for " + randomNum + " seconds.";
-        //} catch (InterruptedException e) {
-       //     e.printStackTrace();
-        //    return "My sleep was inturrepted. I was supposed to wait for " + randomNum + " seconds.";
-       // }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return "My sleep was inturrepted. I was supposed to wait for " + randomNum + " seconds.";
+        }
     }
 }
