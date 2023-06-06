@@ -222,3 +222,18 @@ resilience4j.circuitbreaker.instances.slow-service.permitted-number-of-calls-in-
 resilience4j.circuitbreaker.instances.slow-service.sliding-window-size=10
 resilience4j.circuitbreaker.instances.slow-service.sliding-window-type=COUNT_BASED
 ```
+
+## Retry
+Same as in Circuit Breaker. 
+Do add Retry    
+```java
+ @Retry(name = "slow-service", fallbackMethod = "slowServiceFallback") 
+
+```
+
+Add the following properties
+```properties
+
+resilience4j.retry.instances.slow-service.max-attempts=5
+resilience4j.retry.instances.slow-service.wait-duration=2s
+```
