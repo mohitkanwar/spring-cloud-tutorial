@@ -16,6 +16,7 @@
         <module>slow-service</module>
         <module>time-constraind-service</module>
         <module>retry-service</module>
+        <module>resilient-gateway</module>
     </modules>
     <build>
         <plugins>

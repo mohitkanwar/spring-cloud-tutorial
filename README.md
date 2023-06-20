@@ -1,18 +1,28 @@
 # Spring Cloud Tutorial
+## Chapters
+1. Understanding Spring Cloud Architecture
+2. Bringing Resiliance to Microservices
+3. Securing the microservices
+4. Debugging the microservices
+### Chapter 1 : Understanding Spring Cloud Architecture
+   Spring Cloud Architecture is a cloud-agnostic architecture for developing microservices.
+    The first chapter introduces the core services required for building a microservices environment.
+   
+*Pre-Requisites* :
 
 This tutorial aims to create a spring cloud architecture that comprises of the following components
 1. Gateway
-2. Discovery
-3. Hello Microservice
-4. World Microservice
-5. Hello World Microservice
-6. Cloud configuration
-7. Circuit Breaking
-8. Rate Limiting
-9. Redis Caching
-10. Security implementation
-11. Tracing
-12. Idempotency
+2. Discovery 
+3. Hello World Microservice 
+4. Cloud configuration 
+5. Circuit Breaking and retries
+   1. Service level
+   2. Gateway level
+6. Rate Limiting 
+7. Security implementation 
+8. Tracing 
+9. Idempotency 
+10. Redis Caching
 
 
 
