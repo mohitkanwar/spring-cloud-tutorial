@@ -7,7 +7,30 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-cloud-tutorial</name>
     <description>Spring Cloud Tutorial</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <properties>
+        <spring-cloud.version>2021.0.3</spring-cloud.version>
+    </properties>
     <packaging>pom</packaging>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <modules>
         <module>discovery</module>
         <module>gateway</module>
@@ -17,6 +40,7 @@
         <module>time-constraind-service</module>
         <module>retry-service</module>
         <module>resilient-gateway</module>
+        <module>resilient-ratelimited-gateway</module>
     </modules>
     <build>
         <plugins>
